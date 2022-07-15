@@ -1,10 +1,17 @@
-from banco_imobiliario.config import Configuracao
-from banco_imobiliario.entidades import Tabuleiro, Dado, Impulsivo, Cauteloso, Exigente, Aleatorio
 import unittest
+
+from banco_imobiliario.config import Configuracao
+from banco_imobiliario.entidades import (
+    Aleatorio,
+    Cauteloso,
+    Dado,
+    Exigente,
+    Impulsivo,
+    Tabuleiro,
+)
 
 
 class TestConfiguracao(unittest.TestCase):
-
     def setUp(self) -> None:
         self.configuracao = Configuracao()
         self.tabuleiro = self.configuracao.montar_tabuleiro()
@@ -12,9 +19,7 @@ class TestConfiguracao(unittest.TestCase):
     def test_configuracao_deve_retornar_tabuleiro(self):
 
         self.assertIsInstance(
-            self.tabuleiro,
-            Tabuleiro,
-            'montar_tabuleiro não retorna um Tabuleiro'
+            self.tabuleiro, Tabuleiro, "montar_tabuleiro não retorna um Tabuleiro"
         )
 
     def test_tabuleiro_deve_ter_20_casas(self):
@@ -22,22 +27,22 @@ class TestConfiguracao(unittest.TestCase):
 
     def test_configuracao_deve_retornar_dado(self):
         self.assertIsInstance(
-            self.configuracao.retorna_dado(),
-            Dado,
-            'retornar_dado não retorna um Dado'
+            self.configuracao.retorna_dado(), Dado, "retornar_dado não retorna um Dado"
         )
 
     def test_configuracao_deve_retornar_lista_jogadores(self):
         jogadores_esperado = [
-            Impulsivo(self.tabuleiro), Exigente(self.tabuleiro),
-            Cauteloso(self.tabuleiro), Aleatorio(self.tabuleiro)
+            Impulsivo(self.tabuleiro),
+            Exigente(self.tabuleiro),
+            Cauteloso(self.tabuleiro),
+            Aleatorio(self.tabuleiro),
         ]
         jogadores = self.configuracao.retorna_jogadores()
 
         self.assertListEqual(
             list(map(vars, jogadores_esperado)),
             list(map(vars, jogadores)),
-            'retorna_jogadores não retorna lista de Jogadores'
+            "retorna_jogadores não retorna lista de Jogadores",
         )
 
 

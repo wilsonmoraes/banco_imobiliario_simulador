@@ -2,7 +2,7 @@
 name = "banco_imobiliario"
 version = "0.1.0"
 description = ""
-authors = ["Delatorrea <emerson@delatorre.dev>"]
+authors = ["Delatorrea <emerson@delatorre.dev>","WIlsonMoraes <wilsontads@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
@@ -10,6 +10,8 @@ python = "^3.9"
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
 autopep8 = "^1.5.7"
+pre-commit = "*"
+pytest-cov = "*"
 
 [tool.poetry.scripts]
 my-script = "banco_imobiliario.main:start"

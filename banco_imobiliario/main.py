@@ -1,5 +1,5 @@
 from config import Configuracao
-from entidades import Vencedor, Resultado
+from entidades import Resultado, Vencedor
 
 
 def handler():
@@ -10,7 +10,7 @@ def handler():
         tabuleiro = configuracao.montar_tabuleiro()
         dado = configuracao.retorna_dado()
         jogadores = configuracao.retorna_jogadores()
-        
+
         for rodada in range(1, 1001):
             if tabuleiro.retorna_qtd_jogadores() <= 1:
                 break
@@ -21,12 +21,10 @@ def handler():
                     propriedade = tabuleiro.retornar_propriedade(casa)
                     jogador.analisar(propriedade)
 
-        resultado.adicionar_vencedor(
-            Vencedor(rodada, tabuleiro.retornar_vencedor())
-        )
-            
+        resultado.adicionar_vencedor(Vencedor(rodada, tabuleiro.retornar_vencedor()))
+
     resultado.exibir()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     handler()

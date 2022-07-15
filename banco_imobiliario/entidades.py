@@ -21,7 +21,7 @@ class Vencedor:
         return self._rodada
 
     def __str__(self):
-        return f'Vencedor( Tipo: {self._jogador}, Rodada: {self._rodada} )'
+        return f"Vencedor( Tipo: {self._jogador}, Rodada: {self._rodada} )"
 
 
 class Resultado:
@@ -47,12 +47,20 @@ class Resultado:
         total = len(self._vencedores)
         vitorias = {}
         for tipo in ETipoJogador:
-            vitorias[tipo.name] = round((len(
-                list(
-                    filter(
-                        lambda x: x.retorna_tipo_jogador() == tipo.value, self._vencedores)
+            vitorias[tipo.name] = round(
+                (
+                    len(
+                        list(
+                            filter(
+                                lambda x: x.retorna_tipo_jogador() == tipo.value,
+                                self._vencedores,
+                            )
+                        )
+                    )
+                    * 100
                 )
-            ) * 100) / total)
+                / total
+            )
         return vitorias
 
     def maior_vitorioso(self):
@@ -61,10 +69,10 @@ class Resultado:
 
     def exibir(self):
         print(
-            f'Resultados:\nPartidas que terminaram por time out: {self.qtd_partidas_time_out()}\n' +
-            f'Média de Turnos por Partida: {self.media_turnos()}\n' +
-            f'Percentual de vitórias por comportamento dos jogadores: {self.percentual_vitoria_por_comportamento()}\n' +
-            f'Comportamento com maior número de Vitórias: {self.maior_vitorioso()}'
+            f"Resultados:\nPartidas que terminaram por time out: {self.qtd_partidas_time_out()}\n"
+            + f"Média de Turnos por Partida: {self.media_turnos()}\n"
+            + f"Percentual de vitórias por comportamento dos jogadores: {self.percentual_vitoria_por_comportamento()}\n"
+            + f"Comportamento com maior número de Vitórias: {self.maior_vitorioso()}"
         )
 
 
@@ -169,7 +177,7 @@ class Jogador:
             self._em_jogo = False
             return True
         return False
-    
+
     def retornar_saldo(self) -> int:
         return self._saldo
 
@@ -184,23 +192,22 @@ class Jogador:
             self._saldo -= propriedade.retornar_custo_venda()
             self.adicionar_propriedade(propriedade)
             propriedade.definir_novo_proprietario(self)
-    
+
     def _pagar(self, propriedade: Propriedade):
         self._saldo -= propriedade.retornar_valor_aluguel()
         proprietario = propriedade.retornar_proprietario()
         proprietario.receber(propriedade.retornar_valor_aluguel())
-    
+
     def receber(self, valor: int):
         self._saldo += valor
 
     def devolver_propriedades(self):
-        propriedades = \
-            list(
-                filter(
-                    lambda x: x in self._propriedades,
-                    self._tabuleiro.retornar_todas_propriedades()
-                )
+        propriedades = list(
+            filter(
+                lambda x: x in self._propriedades,
+                self._tabuleiro.retornar_todas_propriedades(),
             )
+        )
 
         for propriedade in propriedades:
             propriedade.definir_disponivel_mercado()
@@ -209,15 +216,15 @@ class Jogador:
 
     def retorna_tipo(self) -> Enum:
         return self._tipo
-    
+
     def __str__(self):
-        return f'Jogador( Tipo: {self._tipo.name}, Saldo: {self._saldo}, Em fogo? {self._em_jogo} )'
-        
+        return f"Jogador( Tipo: {self._tipo.name}, Saldo: {self._saldo}, Em fogo? {self._em_jogo} )"
+
 
 class Impulsivo(Jogador):
     def __init__(self, tabuleiro) -> None:
         super().__init__(tabuleiro, ETipoJogador.Impulsivo)
-    
+
     def analisar(self, propriedade: Propriedade):
         if propriedade.disponivel():
             self._comprar(propriedade)
@@ -274,7 +281,7 @@ class Aleatorio(Jogador):
 
 
 class ETipoJogador(Enum):
-    Impulsivo = 1,
-    Exigente = 2,
-    Cauteloso = 3,
+    Impulsivo = (1,)
+    Exigente = (2,)
+    Cauteloso = (3,)
     Aleatorio = 4

@@ -1,0 +1,53 @@
+repos:
+- repo: git@github.com:pre-commit/pre-commit-hooks
+  rev: v3.4.0
+  hooks:
+    - id: debug-statements
+    - id: trailing-whitespace
+      args: [--markdown-linebreak-ext=md]
+    - id: check-merge-conflict
+    - id: check-ast
+    - id: check-byte-order-marker
+    - id: check-json
+    - id: check-symlinks
+    - id: check-vcs-permalinks
+    - id: check-xml
+    - id: check-yaml
+      exclude: ^k8s/
+    - id: detect-aws-credentials
+      args: ['--allow-missing-credentials']
+    - id: detect-private-key
+    - id: forbid-new-submodules
+    - id: end-of-file-fixer
+
+- repo: local
+  hooks:
+    - id: check-datetime-now
+      name: check_datetime_now
+      description: Prefer datetime.utcnow()
+      language: pygrep
+      entry: 'datetime\.now\(\)'
+      types: [python]
+
+- repo: https://gitlab.com/pycqa/flake8
+  rev: 3.8.4
+  hooks:
+    - id: flake8
+      args: ['--exclude=docs/*,*migrations*', '--ignore=E501,W503,E203']
+
+- repo: https://github.com/timothycrosley/isort
+  rev: 5.7.0
+  hooks:
+    - id: isort
+      args: ['--check-only', '--diff']
+      additional_dependencies: ['toml']
+
+- repo: https://github.com/pre-commit/pygrep-hooks
+  rev: v1.8.0
+  hooks:
+    - id: python-check-mock-methods
+
+- repo: https://github.com/python/black
+  rev: 22.3.0
+  hooks:
+    - id: black
